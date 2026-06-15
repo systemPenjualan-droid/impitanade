@@ -1,46 +1,203 @@
 /* ============================================================
-   JIMPITAN BALI - Custom Stylesheet v3
-   Background Terang | Teks Kontras | Warna Profesional
+   JIMPITAN BALI - Premium Banking Style v4
+   Timpa langsung, tidak perlu edit file lama
    ============================================================ */
 
-/* Tab Active */
+/* ---------- TAB ---------- */
 .tab-btn--active {
-  background: #ffffff !important;
-  color: #3b82f6 !important;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15) !important;
+  background: #1e40af !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(30, 64, 175, 0.35) !important;
   font-weight: 700 !important;
 }
 
-/* Panel */
 .panel { display: none; }
 .panel--active { display: block; }
 
-/* Struk Thermal */
-.struk .center { text-align: center; }
-.struk .judul { font-weight: 700; font-size: 12px; }
-.struk .sub { font-size: 10px; }
-.struk .garis { border-top: 1px dashed #000; margin: 5px 0; }
-.struk .garis-tebal { border-top: 2px solid #000; margin: 5px 0; }
-.struk .row { display: flex; justify-content: space-between; }
-.struk .kanan { text-align: right; }
-.struk .total { font-size: 12px; font-weight: 700; }
+/* ---------- CHIP ---------- */
+.chip-item--active {
+  background: #dbeafe !important;
+  border-color: #1e40af !important;
+  color: #1e40af !important;
+  font-weight: 700 !important;
+}
 
-/* Toast */
+/* ---------- STRUK THERMAL ---------- */
+.struk-wrapper {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  z-index: -1;
+}
+
+.struk {
+  width: 320px;
+  background: #fff;
+  font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+  font-size: 10.5px;
+  color: #000;
+  padding: 14px 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0;
+  text-rendering: optimizeSpeed;
+}
+
+.struk .center { text-align: center; }
+
+.struk .judul {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.struk .sub {
+  font-size: 10px;
+  letter-spacing: 0.3px;
+  margin-bottom: 2px;
+}
+
+.struk .garis {
+  border: none;
+  border-top: 1.5px dashed #333;
+  margin: 6px 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+}
+
+.struk .garis-tebal {
+  border: none;
+  border-top: 1.5px solid #000;
+  margin: 6px 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+}
+
+.struk .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1px 0;
+  white-space: nowrap;
+}
+
+.struk .row span:first-child {
+  flex-shrink: 0;
+  text-align: left;
+}
+
+.struk .row span:last-child {
+  flex-shrink: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.struk .kanan {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.struk .total {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------- TOAST ---------- */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 200;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
 .toast.show { opacity: 1; }
 
-/* Modal */
+/* ---------- MODAL ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
 .modal-overlay.show { display: flex; }
 
-/* Empty State */
-.empty-state { color: #cbd5e1; }
+.modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px 20px;
+  width: 90%;
+  max-width: 380px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+  animation: modalIn 0.25s ease-out;
+}
 
-/* Table */
-tbody tr:hover { background: #f8fafc; }
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
 
-/* Print */
+/* ---------- EMPTY STATE ---------- */
+.empty-state {
+  color: #cbd5e1;
+}
+
+/* ---------- TABLE ---------- */
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* ---------- SCROLLBAR ---------- */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* ---------- PRINT ---------- */
 @media print {
-  body * { visibility: hidden; }
-  .struk-wrapper, .struk-wrapper * { visibility: visible; }
+  body * {
+    visibility: hidden;
+  }
+  .struk-wrapper,
+  .struk-wrapper * {
+    visibility: visible;
+  }
   .struk-wrapper {
     position: absolute !important;
     left: 0 !important;
@@ -48,18 +205,18 @@ tbody tr:hover { background: #f8fafc; }
     width: 100% !important;
     z-index: 9999 !important;
   }
-  .struk { width: 100% !important; }
+  .struk {
+    width: 100% !important;
+  }
 }
 
-/* Accessibility */
+/* ---------- ACCESSIBILITY ---------- */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-
-.tab-btn--active{background:#fff!important;color:#3b82f6!important;box-shadow:0 2px 8px rgba(59,130,246,.15)!important;font-weight:700!important}
-.panel{display:none}.panel--active{display:block}
-.struk .center{text-align:center}.struk .judul{font-weight:700;font-size:12px}.struk .sub{font-size:10px}.struk .garis{border-top:1px dashed #000;margin:5px 0}.struk .garis-tebal{border-top:2px solid #000;margin:5px 0}.struk .row{display:flex;justify-content:space-between}.struk .kanan{text-align:right}.struk .total{font-size:12px;font-weight:700}
-.toast.show{opacity:1}
-@media print{body *{visibility:hidden}.struk-wrapper,.struk-wrapper *{visibility:visible}.struk-wrapper{position:absolute!important;left:0!important;top:0!important;width:100%!important;z-index:9999!important}.struk{width:100%!important}}
+}
