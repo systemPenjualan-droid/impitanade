@@ -2,93 +2,261 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Jimpitan Bali</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="description" content="Jimpitan Bali - Tabungan Harian Sistem Kalender Bali 6 Sasih">
+  <meta name="author" content="Mangsatria">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Jimpitan Bali">
+  <meta name="theme-color" content="#1e40af">
+  <title>Jimpitan Bali - Mangsatria</title>
+
+  <!-- PWA -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={theme:{extend:{colors:{accent:'#3b82f6',wa:'#25d366',success:'#059669',danger:'#dc2626'}}}}</script>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <script>tailwind.config={theme:{extend:{colors:{primary:'#1e40af',accent:'#3b82f6',success:'#059669',danger:'#dc2626',wa:'#25d366'},fontFamily:{sans:['"Plus Jakarta Sans"','sans-serif'],mono:['"JetBrains Mono"','monospace']}}}};</script>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- html2canvas -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
-  <style>body{font-family:'Plus Jakarta Sans',sans-serif;}</style>
 </head>
-<body class="bg-gradient-to-b from-[#f0f4f8] to-[#e8eef3] text-[#0f172a]">
-  <div class="max-w-[440px] mx-auto min-h-screen px-4 pt-5 pb-10">
-    <header class="flex justify-between items-center mb-5">
-      <div><h1 class="text-2xl font-bold">🌾 Jimpitan</h1><p class="text-xs text-[#64748b]">Desa Padang Bulia</p></div>
-      <span class="text-xs font-semibold text-accent bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">6 Sasih</span>
+<body>
+  <div class="app-container">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="app-header-top">
+        <div class="app-header-brand">
+          <div class="app-header-icon">🌾</div>
+          <div>
+            <div class="app-header-title">Jimpitan Bali</div>
+            <div class="app-header-subtitle">Mangsatria • Desa Padang Bulia</div>
+          </div>
+        </div>
+        <div class="app-header-actions">
+          <div class="toggle-dark" id="toggleDark" onclick="toggleDarkMode()">
+            <div class="toggle-dark-circle">🌙</div>
+          </div>
+          <div class="app-header-badge">6 Sasih</div>
+        </div>
+      </div>
+      <div class="saldo-card">
+        <div class="saldo-label">Total Tabungan Aktif</div>
+        <div class="saldo-amount" id="saldoHeader">Rp0</div>
+        <div class="saldo-info">
+          <span>👤 <span id="nasabahHeader">-</span></span>
+          <span>📅 <span id="hariHeader">0</span>/210 hari</span>
+        </div>
+      </div>
     </header>
-    <nav class="flex gap-1 mb-5 bg-[#e2e8f0] rounded-2xl p-1.5" id="tabNav">
-      <button class="tab-btn tab-btn--active flex-1 py-2.5 text-[11px] font-semibold text-[#64748b] rounded-xl" data-tab="setup">⚙️ Atur</button>
-      <button class="tab-btn flex-1 py-2.5 text-[11px] font-semibold text-[#64748b] rounded-xl" data-tab="setor">💵 Setor</button>
-      <button class="tab-btn flex-1 py-2.5 text-[11px] font-semibold text-[#64748b] rounded-xl" data-tab="edit">✏️ Edit</button>
-      <button class="tab-btn flex-1 py-2.5 text-[11px] font-semibold text-[#64748b] rounded-xl" data-tab="riwayat">📋 Riwayat</button>
-    </nav>
 
-    <!-- Panel Setup -->
-    <div class="panel panel--active" id="setup">
-      <div class="bg-white rounded-[18px] p-5 mb-4 shadow-sm border border-[#e2e8f0]">
-        <label class="block text-[11px] uppercase text-[#64748b] font-semibold mb-1">Nasabah</label>
-        <select id="namaNasabah" class="w-full border-2 border-[#e2e8f0] rounded-2xl p-3.5 text-sm bg-[#f8fafc] mb-4 outline-none focus:border-accent">
-          <option value="">🔄 Loading...</option>
-        </select>
-        <div class="flex gap-3">
-          <div class="flex-1"><label class="block text-[11px] uppercase text-[#64748b] font-semibold mb-1">Target/hari</label>
-          <input type="number" id="targetHarian" class="w-full border-2 border-[#e2e8f0] rounded-2xl p-3.5 text-sm bg-[#f8fafc] mb-4" value="2000" min="500"></div>
-          <div class="flex-1"><label class="block text-[11px] uppercase text-[#64748b] font-semibold mb-1">Desa</label>
-          <input type="text" id="desa" class="w-full border-2 border-[#e2e8f0] rounded-2xl p-3.5 text-sm bg-[#f8fafc] mb-4" value="Desa Padang Bulia"></div>
-        </div>
-        <button id="btnMulai" class="w-full bg-accent text-white rounded-[30px] py-3.5 font-semibold">▶ Mulai Tabungan</button>
-      </div>
-    </div>
+    <!-- CONTENT -->
+    <main class="app-content">
 
-    <!-- Panel Setor -->
-    <div class="panel" id="setor">
-      <div class="bg-white rounded-[18px] p-5 mb-4 shadow-sm border border-[#e2e8f0]">
-        <div class="flex justify-between mb-3 pb-3 border-b"><strong id="namaSetor" class="text-lg">-</strong><span class="text-xs text-[#64748b]" id="targetSetor">-</span></div>
-        <div class="flex gap-2 flex-wrap mb-3" id="chipRow">
-          <span class="chip px-4 py-2.5 rounded-[22px] border-2 border-[#e2e8f0] bg-white text-sm font-semibold cursor-pointer" data-hari="1">1</span>
-          <span class="chip px-4 py-2.5 rounded-[22px] border-2 border-[#e2e8f0] bg-white text-sm font-semibold cursor-pointer" data-hari="2">2</span>
-          <span class="chip px-4 py-2.5 rounded-[22px] border-2 border-[#e2e8f0] bg-white text-sm font-semibold cursor-pointer" data-hari="3">3</span>
-          <span class="chip px-4 py-2.5 rounded-[22px] border-2 border-[#e2e8f0] bg-white text-sm font-semibold cursor-pointer" data-hari="5">5</span>
-          <span class="chip px-4 py-2.5 rounded-[22px] border-2 border-[#e2e8f0] bg-white text-sm font-semibold cursor-pointer" data-hari="7">7</span>
-        </div>
-        <input type="number" id="nominalSetor" class="w-full border-2 border-[#e2e8f0] rounded-2xl p-3.5 text-sm bg-[#f8fafc] mb-4" placeholder="Nominal bebas">
-        <button id="btnSetor" class="w-full bg-wa text-white rounded-[30px] py-3.5 font-semibold">📤 Setor & Kirim WA</button>
-      </div>
-      <div class="bg-white rounded-[18px] p-5 shadow-sm border border-[#e2e8f0]">
-        <div class="flex justify-between text-xs text-[#64748b] mb-2"><span>Progress</span><span id="sisaHari" class="font-semibold text-accent">210 hari</span></div>
-        <div class="h-2.5 bg-[#e2e8f0] rounded-full"><div class="h-full bg-accent rounded-full transition-all" id="progressFill" style="width:0%"></div></div>
-      </div>
-    </div>
+      <!-- Tabs -->
+      <nav class="tab-nav">
+        <button class="tab-btn tab-btn--active" data-tab="setup">⚙️ Atur</button>
+        <button class="tab-btn" data-tab="setor">💵 Setor</button>
+        <button class="tab-btn" data-tab="edit">✏️ Edit</button>
+        <button class="tab-btn" data-tab="riwayat">📋 Riwayat</button>
+      </nav>
 
-    <!-- Panel Edit -->
-    <div class="panel" id="edit">
-      <div class="bg-white rounded-[18px] p-5 shadow-sm border border-[#e2e8f0]">
-        <div class="flex justify-between mb-3"><strong id="namaEdit" class="text-lg">-</strong><span class="text-xs text-[#64748b]" id="jmlTransaksi">0</span></div>
-        <div id="editList"></div><div class="text-center text-[#cbd5e1] py-8" id="editKosong">Belum ada transaksi</div>
-      </div>
-    </div>
-
-    <!-- Panel Riwayat -->
-    <div class="panel" id="riwayat">
-      <div class="bg-white rounded-[18px] p-5 mb-4 shadow-sm border border-[#e2e8f0]">
-        <div class="flex justify-between mb-3"><strong id="namaRiwayat" class="text-lg">-</strong><button id="btnReset" class="text-danger border-2 border-[#fee2e2] rounded-[30px] px-4 py-2 text-xs font-semibold">↺ Reset</button></div>
-        <div class="grid grid-cols-2 gap-3">
-          <div class="bg-blue-50 rounded-2xl p-4 text-center"><p class="text-[11px] text-[#64748b] font-semibold">💰 Total</p><span class="font-bold text-xl" id="totalSetorDisplay">0</span></div>
-          <div class="bg-emerald-50 rounded-2xl p-4 text-center"><p class="text-[11px] text-[#64748b] font-semibold">📆 Hari</p><span class="font-bold text-xl text-success" id="totalHariDisplay">0</span></div>
+      <!-- PANEL SETUP -->
+      <div class="panel panel--active" id="setup">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon card-icon--blue"><i class="bi bi-person-fill"></i></div>
+            <div><strong style="font-size:15px;color:var(--text)">Data Nasabah</strong><p style="font-size:10px;color:var(--text-muted)">Pilih nasabah dan atur target</p></div>
+          </div>
+          <label class="form-label">Nama Nasabah</label>
+          <select id="namaNasabah" class="form-select">
+            <option value="">🔄 Memuat data...</option>
+          </select>
+          <div class="input-row">
+            <div>
+              <label class="form-label">Target/Hari</label>
+              <input type="number" id="targetHarian" class="form-input" value="2000" min="500" step="500">
+            </div>
+            <div>
+              <label class="form-label">Desa</label>
+              <input type="text" id="desa" class="form-input" value="Desa Padang Bulia">
+            </div>
+          </div>
+          <button id="btnMulai" class="btn btn--primary">🚀 Mulai Tabungan</button>
         </div>
       </div>
-      <div class="bg-white rounded-[18px] p-5 shadow-sm border border-[#e2e8f0]">
-        <table class="w-full text-xs"><thead><tr class="bg-[#f8fafc]"><th class="p-3 text-left">Tgl</th><th class="p-3 text-left">Setor</th><th class="p-3">Hari</th><th class="p-3 text-right">Saldo</th></tr></thead><tbody id="tabelBody"></tbody></table>
-        <div class="text-center text-[#cbd5e1] py-8" id="tabelKosong">Belum ada transaksi</div>
+
+      <!-- PANEL SETOR -->
+      <div class="panel" id="setor">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon card-icon--green"><i class="bi bi-person-check-fill"></i></div>
+            <div>
+              <strong id="namaSetor" style="font-size:15px;color:var(--text)">-</strong>
+              <p id="targetSetor" style="font-size:10px;color:var(--text-muted)">-</p>
+            </div>
+            <span style="margin-left:auto;background:var(--primary-light);color:var(--primary);font-size:10px;font-weight:700;padding:6px 12px;border-radius:20px"><span id="hariDibayar">0</span>/210</span>
+          </div>
+
+          <label class="form-label">Jumlah Hari Setor</label>
+          <div class="chip-row" id="chipRow">
+            <span class="chip-item" data-hari="1">1</span>
+            <span class="chip-item" data-hari="2">2</span>
+            <span class="chip-item" data-hari="3">3</span>
+            <span class="chip-item" data-hari="5">5</span>
+            <span class="chip-item" data-hari="7">7</span>
+          </div>
+
+          <label class="form-label">Nominal Setoran</label>
+          <div class="input-with-prefix">
+            <span class="input-prefix">Rp</span>
+            <input type="number" id="nominalSetor" class="form-input" placeholder="0" min="0">
+          </div>
+
+          <button id="btnSetor" class="btn btn--wa">📤 Setor & Kirim WhatsApp</button>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:11px;font-weight:600">
+            <span style="color:var(--text)">Progress 6 Sasih</span>
+            <span id="sisaHari" style="color:var(--primary)">210 hari tersisa</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <!-- PANEL EDIT -->
+      <div class="panel" id="edit">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon card-icon--yellow"><i class="bi bi-pencil-fill"></i></div>
+            <div>
+              <strong id="namaEdit" style="font-size:15px;color:var(--text)">-</strong>
+              <p id="jmlTransaksi" style="font-size:10px;color:var(--text-muted)">0 transaksi</p>
+            </div>
+          </div>
+          <div id="editList"></div>
+          <div class="empty-state" id="editKosong">
+            <div class="empty-icon"><i class="bi bi-inbox"></i></div>
+            <p class="empty-text">Belum ada transaksi</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL RIWAYAT -->
+      <div class="panel" id="riwayat">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon card-icon--blue"><i class="bi bi-journal-text"></i></div>
+            <div>
+              <strong id="namaRiwayat" style="font-size:15px;color:var(--text)">-</strong>
+              <p style="font-size:10px;color:var(--text-muted)">Ringkasan Tabungan</p>
+            </div>
+            <button id="btnReset" style="margin-left:auto" class="btn btn--danger btn--sm">↺ Reset</button>
+          </div>
+          <div class="summary-grid">
+            <div class="summary-item summary-item--blue">
+              <div class="summary-label">Total Setor</div>
+              <div class="summary-value summary-value--blue" id="totalSetorDisplay">Rp0</div>
+            </div>
+            <div class="summary-item summary-item--green">
+              <div class="summary-label">Total Hari</div>
+              <div class="summary-value summary-value--green" id="totalHariDisplay">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:16px"><i class="bi bi-list-ul"></i> Buku Setoran</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Tanggal</th><th>Nominal</th><th>Hari</th><th>Saldo</th></tr></thead>
+              <tbody id="tabelBody"></tbody>
+            </table>
+          </div>
+          <div class="empty-state" id="tabelKosong">
+            <div class="empty-icon"><i class="bi bi-journal"></i></div>
+            <p class="empty-text">Belum ada transaksi</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+      <p>Jimpitan Mangsatria © 2026</p>
+      <p>Om Swastiastu 🙏</p>
+    </footer>
+  </div>
+
+  <!-- STRUK HIDDEN -->
+  <div class="struk-wrapper"><div class="struk" id="strukContent"></div></div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- MODAL EDIT -->
+  <div class="modal-overlay" id="modalEdit">
+    <div class="modal">
+      <div class="modal-icon card-icon--blue" style="margin:0 auto 16px"><i class="bi bi-pencil-fill"></i></div>
+      <h3 style="font-size:17px;font-weight:700;color:var(--text);text-align:center;margin-bottom:4px">Edit Setoran</h3>
+      <p style="font-size:11px;color:var(--text-muted);text-align:center;margin-bottom:16px">Perbaiki nominal setoran</p>
+      <label class="form-label">Nominal Baru</label>
+      <div class="input-with-prefix">
+        <span class="input-prefix">Rp</span>
+        <input type="number" id="editNominal" class="form-input" placeholder="0" min="0">
+      </div>
+      <input type="hidden" id="editIndex">
+      <div class="btn-row">
+        <button id="btnBatalEdit" class="btn btn--outline btn--sm">Batal</button>
+        <button id="btnSimpanEdit" class="btn btn--primary btn--sm">Simpan</button>
       </div>
     </div>
   </div>
-  <div class="struk-wrapper fixed left-[-9999px] top-0"><div class="struk w-[320px] bg-white font-mono text-[11px] p-3 leading-[1.4]" id="strukContent"></div></div>
-  <div class="toast fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#0f172a] text-white py-3 px-6 rounded-[30px] text-sm font-semibold z-[200] opacity-0 transition-all" id="toast"></div>
+
+  <!-- MODAL HAPUS -->
+  <div class="modal-overlay" id="modalHapus">
+    <div class="modal">
+      <div class="modal-icon card-icon--red" style="margin:0 auto 16px"><i class="bi bi-exclamation-triangle-fill"></i></div>
+      <h3 style="font-size:17px;font-weight:700;color:var(--text);text-align:center;margin-bottom:4px">Hapus Setoran?</h3>
+      <p id="hapusInfo" style="font-size:11px;color:var(--text-muted);text-align:center;margin-bottom:16px"></p>
+      <input type="hidden" id="hapusIndex">
+      <div class="btn-row">
+        <button id="btnBatalHapus" class="btn btn--outline btn--sm">Batal</button>
+        <button id="btnKonfirmasiHapus" class="btn btn--danger btn--sm">Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- tawk.to -->
+  <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/YOUR_PROPERTY_ID/default';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+    })();
+  </script>
+
   <script src="js/app.js"></script>
 </body>
 </html>
