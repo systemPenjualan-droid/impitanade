@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Jimpitan Bali</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{accent:'#3b82f6',wa:'#25d366',success:'#059669',danger:'#dc2626'}}}}</script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <style>body{font-family:'Plus Jakarta Sans',sans-serif;}</style>
+</head>
+<body class="bg-gradient-to-b from-[#f0f4f8] to-[#e8eef3] text-[#0f172a]">
+  <div class="max-w-[440px] mx-auto min-h-screen px-4 pt-5 pb-10">
+    <header class="flex justify-between items-center mb-5">
+      <div><h1 class="text-2xl font-bold">🌾 Jimpitan</h1><p class="text-xs text-[#64748b]">Desa Padang Bulia</p></div>
+      <span class="text-xs font-semibold text-accent bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">6 Sasih</span>
+    </header>
+    <nav class="flex gap-1 mb-5 bg-[#e2e8f0] rounded-2xl p-1.5" id="tabNav">
+      <button class="tab-btn tab-btn--active flex-1 py-2.5 text-[11px] font-semibold text-[#64748b] rounded-xl" data-tab="setup">⚙️ Atur</button>
+      <button class="tab-btn flex-1 py-2.5 text-[11px] font-semibold text-[#64748b] rounded-xl" data-tab="setor">💵 Setor</button>
+      <button class="tab-btn flex-1 py-2.5 text-[11px] font-semibold text-[#64748b] rounded-xl" data-tab="edit">✏️ Edit</button>
+      <button class="tab-btn flex-1 py-2.5 text-[11px] font-semibold text-[#64748b] rounded-xl" data-tab="riwayat">📋 Riwayat</button>
+    </nav>
+
+    <!-- Panel Setup -->
+    <div class="panel panel--active" id="setup">
+      <div class="bg-white rounded-[18px] p-5 mb-4 shadow-sm border border-[#e2e8f0]">
+        <label class="block text-[11px] uppercase text-[#64748b] font-semibold mb-1">Nasabah</label>
+        <select id="namaNasabah" class="w-full border-2 border-[#e2e8f0] rounded-2xl p-3.5 text-sm bg-[#f8fafc] mb-4 outline-none focus:border-accent">
+          <option value="">🔄 Loading...</option>
+        </select>
+        <div class="flex gap-3">
+          <div class="flex-1"><label class="block text-[11px] uppercase text-[#64748b] font-semibold mb-1">Target/hari</label>
+          <input type="number" id="targetHarian" class="w-full border-2 border-[#e2e8f0] rounded-2xl p-3.5 text-sm bg-[#f8fafc] mb-4" value="2000" min="500"></div>
+          <div class="flex-1"><label class="block text-[11px] uppercase text-[#64748b] font-semibold mb-1">Desa</label>
+          <input type="text" id="desa" class="w-full border-2 border-[#e2e8f0] rounded-2xl p-3.5 text-sm bg-[#f8fafc] mb-4" value="Desa Padang Bulia"></div>
+        </div>
+        <button id="btnMulai" class="w-full bg-accent text-white rounded-[30px] py-3.5 font-semibold">▶ Mulai Tabungan</button>
+      </div>
+    </div>
+
+    <!-- Panel Setor -->
+    <div class="panel" id="setor">
+      <div class="bg-white rounded-[18px] p-5 mb-4 shadow-sm border border-[#e2e8f0]">
+        <div class="flex justify-between mb-3 pb-3 border-b"><strong id="namaSetor" class="text-lg">-</strong><span class="text-xs text-[#64748b]" id="targetSetor">-</span></div>
+        <div class="flex gap-2 flex-wrap mb-3" id="chipRow">
+          <span class="chip px-4 py-2.5 rounded-[22px] border-2 border-[#e2e8f0] bg-white text-sm font-semibold cursor-pointer" data-hari="1">1</span>
+          <span class="chip px-4 py-2.5 rounded-[22px] border-2 border-[#e2e8f0] bg-white text-sm font-semibold cursor-pointer" data-hari="2">2</span>
+          <span class="chip px-4 py-2.5 rounded-[22px] border-2 border-[#e2e8f0] bg-white text-sm font-semibold cursor-pointer" data-hari="3">3</span>
+          <span class="chip px-4 py-2.5 rounded-[22px] border-2 border-[#e2e8f0] bg-white text-sm font-semibold cursor-pointer" data-hari="5">5</span>
+          <span class="chip px-4 py-2.5 rounded-[22px] border-2 border-[#e2e8f0] bg-white text-sm font-semibold cursor-pointer" data-hari="7">7</span>
+        </div>
+        <input type="number" id="nominalSetor" class="w-full border-2 border-[#e2e8f0] rounded-2xl p-3.5 text-sm bg-[#f8fafc] mb-4" placeholder="Nominal bebas">
+        <button id="btnSetor" class="w-full bg-wa text-white rounded-[30px] py-3.5 font-semibold">📤 Setor & Kirim WA</button>
+      </div>
+      <div class="bg-white rounded-[18px] p-5 shadow-sm border border-[#e2e8f0]">
+        <div class="flex justify-between text-xs text-[#64748b] mb-2"><span>Progress</span><span id="sisaHari" class="font-semibold text-accent">210 hari</span></div>
+        <div class="h-2.5 bg-[#e2e8f0] rounded-full"><div class="h-full bg-accent rounded-full transition-all" id="progressFill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- Panel Edit -->
+    <div class="panel" id="edit">
+      <div class="bg-white rounded-[18px] p-5 shadow-sm border border-[#e2e8f0]">
+        <div class="flex justify-between mb-3"><strong id="namaEdit" class="text-lg">-</strong><span class="text-xs text-[#64748b]" id="jmlTransaksi">0</span></div>
+        <div id="editList"></div><div class="text-center text-[#cbd5e1] py-8" id="editKosong">Belum ada transaksi</div>
+      </div>
+    </div>
+
+    <!-- Panel Riwayat -->
+    <div class="panel" id="riwayat">
+      <div class="bg-white rounded-[18px] p-5 mb-4 shadow-sm border border-[#e2e8f0]">
+        <div class="flex justify-between mb-3"><strong id="namaRiwayat" class="text-lg">-</strong><button id="btnReset" class="text-danger border-2 border-[#fee2e2] rounded-[30px] px-4 py-2 text-xs font-semibold">↺ Reset</button></div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-blue-50 rounded-2xl p-4 text-center"><p class="text-[11px] text-[#64748b] font-semibold">💰 Total</p><span class="font-bold text-xl" id="totalSetorDisplay">0</span></div>
+          <div class="bg-emerald-50 rounded-2xl p-4 text-center"><p class="text-[11px] text-[#64748b] font-semibold">📆 Hari</p><span class="font-bold text-xl text-success" id="totalHariDisplay">0</span></div>
+        </div>
+      </div>
+      <div class="bg-white rounded-[18px] p-5 shadow-sm border border-[#e2e8f0]">
+        <table class="w-full text-xs"><thead><tr class="bg-[#f8fafc]"><th class="p-3 text-left">Tgl</th><th class="p-3 text-left">Setor</th><th class="p-3">Hari</th><th class="p-3 text-right">Saldo</th></tr></thead><tbody id="tabelBody"></tbody></table>
+        <div class="text-center text-[#cbd5e1] py-8" id="tabelKosong">Belum ada transaksi</div>
+      </div>
+    </div>
+  </div>
+  <div class="struk-wrapper fixed left-[-9999px] top-0"><div class="struk w-[320px] bg-white font-mono text-[11px] p-3 leading-[1.4]" id="strukContent"></div></div>
+  <div class="toast fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#0f172a] text-white py-3 px-6 rounded-[30px] text-sm font-semibold z-[200] opacity-0 transition-all" id="toast"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>

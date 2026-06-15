@@ -1,0 +1,65 @@
+/* ============================================================
+   JIMPITAN BALI - Custom Stylesheet v3
+   Background Terang | Teks Kontras | Warna Profesional
+   ============================================================ */
+
+/* Tab Active */
+.tab-btn--active {
+  background: #ffffff !important;
+  color: #3b82f6 !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15) !important;
+  font-weight: 700 !important;
+}
+
+/* Panel */
+.panel { display: none; }
+.panel--active { display: block; }
+
+/* Struk Thermal */
+.struk .center { text-align: center; }
+.struk .judul { font-weight: 700; font-size: 12px; }
+.struk .sub { font-size: 10px; }
+.struk .garis { border-top: 1px dashed #000; margin: 5px 0; }
+.struk .garis-tebal { border-top: 2px solid #000; margin: 5px 0; }
+.struk .row { display: flex; justify-content: space-between; }
+.struk .kanan { text-align: right; }
+.struk .total { font-size: 12px; font-weight: 700; }
+
+/* Toast */
+.toast.show { opacity: 1; }
+
+/* Modal */
+.modal-overlay.show { display: flex; }
+
+/* Empty State */
+.empty-state { color: #cbd5e1; }
+
+/* Table */
+tbody tr:hover { background: #f8fafc; }
+
+/* Print */
+@media print {
+  body * { visibility: hidden; }
+  .struk-wrapper, .struk-wrapper * { visibility: visible; }
+  .struk-wrapper {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    z-index: 9999 !important;
+  }
+  .struk { width: 100% !important; }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+.tab-btn--active{background:#fff!important;color:#3b82f6!important;box-shadow:0 2px 8px rgba(59,130,246,.15)!important;font-weight:700!important}
+.panel{display:none}.panel--active{display:block}
+.struk .center{text-align:center}.struk .judul{font-weight:700;font-size:12px}.struk .sub{font-size:10px}.struk .garis{border-top:1px dashed #000;margin:5px 0}.struk .garis-tebal{border-top:2px solid #000;margin:5px 0}.struk .row{display:flex;justify-content:space-between}.struk .kanan{text-align:right}.struk .total{font-size:12px;font-weight:700}
+.toast.show{opacity:1}
+@media print{body *{visibility:hidden}.struk-wrapper,.struk-wrapper *{visibility:visible}.struk-wrapper{position:absolute!important;left:0!important;top:0!important;width:100%!important;z-index:9999!important}.struk{width:100%!important}}
